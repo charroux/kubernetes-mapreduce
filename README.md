@@ -1,10 +1,39 @@
 # kubernetes-mapreduce
 
+## Map
+
+Input:
+
+{
+  "str": "hello world hello"
+}
+
+Output:
+
+{
+  "hello": 2,
+  "world": 1
+}
+
+## Reduce
+
+{
+  "hello": [1, 2, 2, 1],
+  "world": [1, 1, 1]
+}
+
+The keys are words, and the values are arrays containing the number of repetitions of these words in different parts of the source text.
+
+## Launch
+
 kubectl create -f mapreduce-reduce.yaml
 
 kubectl create -f mapreduce-map.yaml
 
 kubectl create -f mapreduce-master.yaml
+
+StatefulSet is a Kubernetes higher-level abstraction (also called a Controller), which manages the deployment and scaling of a set of Pods.
+We will have two StatefulSets: the first one will manage a group of Pods with Mappers and the second one will manage a group of Pods with Reducers. For the Master, StatefulSet is not needed, as it will be represented by only one Pod.
 
 kubectl proxy --port=8080 &
 
